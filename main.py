@@ -1,23 +1,26 @@
-#!/usr/bin/env python3
-import asyncio
 import telepot
-import logging
-from telepot.delegate import per_chat_id
-from telepot.async.delegate import create_open
+import time
+from telepot.delegate import per_chat_id, create_open
 
-from westie import WestieBot
+class WestieBot(telepot.helper.ChatHandler):
+    def __init__(self, seed_tuple, timeout):
+        "docstring"
+        super(WestieBot, self).__init__(seed_tuple, timeout)
 
-# User config (keys etc.)
-import config
+    def on_message(self, msg):
+        """Simple on message thing."""
 
-logging.basicConfig(level=logging.DEBUG)
+        if msg['text']:
+            self.sender.sendMessage(msg['text'])
 
-bot = telepot.async.DelegatorBot(config.TG_KEY, [
-    (per_chat_id(), create_open(WestieBot, timeout=60)),
-])
+def main():
+    """Simple main."""
+    import config
+    bot = telepot.DelegatorBot(config.TG_KEY, [
+        (per_chat_id(), create_open(WestieBot, timeout=10)),
 
-loop = asyncio.get_event_loop()
-loop.create_task(bot.messageLoop())
-print('Listening ...')
+    ])
+    bot.notifyOnMessage(run_forever=True)
 
-loop.run_forever()
+if __name__ == '__main__':
+    main()
