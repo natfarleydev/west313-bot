@@ -11,7 +11,8 @@ class WestieBot(telepot.helper.ChatHandler):
         """Simple on message thing."""
 
         if msg['text']:
-            self.sender.sendMessage(msg['text'])
+            self.sender.sendMessage(
+			    "I know naafing, code me: https://github.com/nasfarley88/west313-bot")
 
 def main():
     """Simple main."""
