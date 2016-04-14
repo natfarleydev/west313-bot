@@ -14,11 +14,15 @@ class WestieBot(telepot.helper.ChatHandler):
 
         """Simple on message thing."""
 	
-	user = msg['from']['username']
+	user = 'user'
+	for key in msg:
+		if key == 'from':
+			user = msg['from']['username']
 
 	#OpenWeather Implementation, check for 'weather' in input string
 	if 'weather' in msg['text'].lower():
 		weather_bot.weather_botCall(self,user,'Birmingham,uk')  
+		print "Weather Bot Accessed by %s" % user
 
 	elif msg['text']:
             self.sender.sendMessage(
