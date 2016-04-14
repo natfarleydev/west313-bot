@@ -14,11 +14,13 @@ class WestieBot(telepot.helper.ChatHandler):
 
         """Simple on message thing."""
 	
+	user = msg['from']['username']
+
 	#OpenWeather Implementation, check for 'weather' in input string
-	if 'weather' in msg['text']:
-		weather_bot.weather_botCall(self,'Birmingham,uk')  
-	  
-        elif msg['text']:
+	if 'weather' in msg['text'].lower():
+		weather_bot.weather_botCall(self,user,'Birmingham,uk')  
+
+	elif msg['text']:
             self.sender.sendMessage(
 			    "I know naafing, code me: https://github.com/nasfarley88/west313-bot")
 
