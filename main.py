@@ -1,6 +1,9 @@
 import telepot
 import time
 from telepot.delegate import per_chat_id, create_open
+import weather_bot
+
+####################################################
 
 class WestieBot(telepot.helper.ChatHandler):
     def __init__(self, seed_tuple, timeout):
@@ -8,9 +11,20 @@ class WestieBot(telepot.helper.ChatHandler):
         super(WestieBot, self).__init__(seed_tuple, timeout)
 
     def on_message(self, msg):
-        """Simple on message thing."""
 
-        if msg['text']:
+        """Simple on message thing."""
+	
+	user = 'user'
+	for key in msg:
+		if key == 'from':
+			user = msg['from']['username']
+
+	#OpenWeather Implementation, check for 'weather' in input string
+	if 'weather' in msg['text'].lower():
+		weather_bot.weather_botCall(self,user,'Birmingham,uk')  
+		print "Weather Bot Accessed by %s" % user
+
+	elif msg['text']:
             self.sender.sendMessage(
 			    "I know naafing, code me: https://github.com/nasfarley88/west313-bot")
 
