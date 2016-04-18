@@ -1,6 +1,6 @@
 ##########OPENWEATHER API & APPKEY##################
-import pyowm
-owm = pyowm.OWM(pickle.load(open(".weather_key.dat","rb"))
+import pyowm,pickle
+owm = pyowm.OWM(pickle.load(open(".weather_key.dat","rb")))
 ####################################################
 
 def weather_botCall(self,user,location):
