@@ -4,7 +4,7 @@ owm = pyowm.OWM('238da21e83fcfa9f499bbad8d9b365d0') # TODO remove key from hard 
 ####################################################
 
 # This is not a *true* self, but it's as good a name as any
-def weather_botCall(self, location):
+def weather_botCall(self, msg, location="Birmingham,uk"):
     weatherLocationW313 = owm.weather_at_place(location)
     w = weatherLocationW313.get_weather()
     weather = {'Status': w.get_detailed_status(),
@@ -21,3 +21,8 @@ def weather_botCall(self, location):
                                weather['Temperature']['temp_max'],weather['Temperature']['temp_min'],
                                weather['Humidity'],weather['Pressure']['press'],
                                weather['Wind']['speed'],weather['Wind']['deg'],))
+
+__commands__ = {
+        "/weather": weather_botCall
+}
+

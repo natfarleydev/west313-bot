@@ -5,6 +5,11 @@ import weather_bot
 
 ####################################################
 
+# If you want your features to be used as part of the bot, add them here
+bot_features = [
+    weather_bot,
+]
+
 class WestieBot(telepot.helper.ChatHandler):
     def __init__(self, seed_tuple, timeout):
         "docstring"
@@ -17,6 +22,18 @@ class WestieBot(telepot.helper.ChatHandler):
             if key == 'from':
                 user = msg['from']['username']
 
+        # bot features from modules
+        bot_methods = {}
+        for i in [x.__commands__ for x in bot_features]:
+            print(i)
+            bot_methods.update(i)
+            print(bot_methods)
+
+        for command, method in bot_methods.items():
+            if command in msg:
+                method(self, msg)
+
+        # TODO remove in favour of __commands__
         #OpenWeather Implementation, check for 'weather' in input string
         if 'weather' in msg['text'].lower():
             weather_bot.weather_botCall(self, 'Birmingham,uk')
