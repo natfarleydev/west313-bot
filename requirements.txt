@@ -20,3 +20,4 @@ six==1.10.0
 SQLAlchemy==1.0.12
 telepot==6.5
 traitlets==4.1.0
+stomp.py==4.1.9
