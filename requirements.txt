@@ -10,6 +10,7 @@ ipython-genutils==0.1.0
 Mako==1.0.3
 MarkupSafe==0.23
 normality==0.2.4
+numpy==1.11.0
 path.py==8.1.2
 pexpect==4.0.1
 pickleshare==0.6
@@ -21,6 +22,6 @@ requests==2.9.1
 simplegeneric==0.8.1
 six==1.10.0
 SQLAlchemy==1.0.12
+stomp.py==4.1.9
 telepot==7.0
 traitlets==4.1.0
-stomp.py==4.1.9
