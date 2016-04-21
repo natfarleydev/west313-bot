@@ -18,13 +18,10 @@ class WestieBot(telepot.helper.ChatHandler):
         super(WestieBot, self).__init__(seed_tuple, timeout)
 
     def on_message(self, msg):
-        """Simple on message thing."""
-        user = 'user'
-        for key in msg:
-            if key == 'from':
-                user = msg['from']['username']
 
-        # bot features from modules
+        """Simple on message thing."""
+
+                # bot features from modules
         bot_methods = {}
         for i in [x.__commands__ for x in bot_features]:
             print(i)
@@ -38,10 +35,10 @@ class WestieBot(telepot.helper.ChatHandler):
 
         # TODO remove in favour of __commands__
         #OpenWeather Implementation, check for 'weather' in input string
-        if 'weather' in msg['text'].lower():
-            weather_bot.weather_botCall(self, 'Birmingham,uk')
-            print("Weather Bot Accessed by %s" % user)
-
+       # if 'weather' in msg['text'].lower():
+        #    weather_bot.weather_botCall(self, 'Birmingham,uk')
+        #    print("Weather Bot Accessed by %s" % user)
+#
 def main():
     """Simple main."""
     import config

@@ -1,3 +1,5 @@
+# Weather Key
+.weather_key.dat
 # personal things
 config.py
 .python-version
