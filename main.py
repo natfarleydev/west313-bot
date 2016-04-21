@@ -4,6 +4,7 @@ from telepot.delegate import per_chat_id, create_open
 import weather_bot
 import arxiv_plugin
 import NetRail
+import Calc_Bot
 
 ####################################################
 
@@ -11,7 +12,8 @@ import NetRail
 bot_features = [
     weather_bot,
     arxiv_plugin,
-    NetRail
+    NetRail,
+    Calc_Bot
 ]
 
 EXITAPP = False
