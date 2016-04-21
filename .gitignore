@@ -1,5 +1,9 @@
 # personal things
 config.py
+.python-version
+telepot
+time
+*.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
