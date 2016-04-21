@@ -1,7 +1,8 @@
+import config
 
 ##########OPENWEATHER API & APPKEY##################
 import pyowm,pickle
-owm = pyowm.OWM(pickle.load(open(".weather_key.dat","rb")))
+owm = pyowm.OWM(config.WEATHER_KEY)
 ####################################################
 
 # This is not a *true* self, but it's as good a name as any
