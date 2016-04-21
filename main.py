@@ -2,12 +2,14 @@ import telepot
 import time
 from telepot.delegate import per_chat_id, create_open
 import weather_bot
+import arxiv_plugin
 
 ####################################################
 
 # If you want your features to be used as part of the bot, add them here
 bot_features = [
     weather_bot,
+    arxiv_plugin,
 ]
 
 class WestieBot(telepot.helper.ChatHandler):
@@ -27,7 +29,8 @@ class WestieBot(telepot.helper.ChatHandler):
             print(bot_methods)
 
         for command, method in bot_methods.items():
-            if command in msg:
+            print("Executing {}".format(method.__name__))
+            if command in msg['text']:
                 method(self, msg)
 
         # TODO remove in favour of __commands__
