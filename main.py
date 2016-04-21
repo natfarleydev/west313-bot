@@ -3,7 +3,6 @@ import time
 from telepot.delegate import per_chat_id, create_open
 import weather_bot
 import arxiv_plugin
-import reboot_plugin
 
 ####################################################
 
@@ -11,8 +10,9 @@ import reboot_plugin
 bot_features = [
     weather_bot,
     arxiv_plugin,
-    reboot_plugin,
 ]
+
+EXITAPP = False
 
 class WestieBot(telepot.helper.ChatHandler):
     def __init__(self, seed_tuple, timeout):
@@ -23,7 +23,12 @@ class WestieBot(telepot.helper.ChatHandler):
 
         """Simple on message thing."""
 
-                # bot features from modules
+        if "/die" in msg['text']:
+            global EXITAPP
+            self.sender.sendMessage("Daisy, Daisy, give mmmee yourrr aanswweeerr truuuee...")
+            EXITAPP = True
+
+        # bot features from modules
         bot_methods = {}
         for i in [x.__commands__ for x in bot_features]:
             print(i)
@@ -35,19 +40,18 @@ class WestieBot(telepot.helper.ChatHandler):
             if command in msg['text']:
                 method(self, msg)
 
-        # TODO remove in favour of __commands__
-        #OpenWeather Implementation, check for 'weather' in input string
-       # if 'weather' in msg['text'].lower():
-        #    weather_bot.weather_botCall(self, 'Birmingham,uk')
-        #    print("Weather Bot Accessed by %s" % user)
-#
+
 def main():
     """Simple main."""
     import config
     bot = telepot.DelegatorBot(config.TG_KEY, [
         (per_chat_id(), create_open(WestieBot, timeout=10)),
     ])
-    bot.message_loop(run_forever=True)
+
+    bot.message_loop()
+
+    while not EXITAPP:
+        time.sleep(1)
 
 if __name__ == '__main__':
     main()
