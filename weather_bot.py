@@ -1,11 +1,16 @@
+
 ##########OPENWEATHER API & APPKEY##################
-import pyowm
-owm = pyowm.OWM('238da21e83fcfa9f499bbad8d9b365d0') # TODO remove key from hard code
+import pyowm,pickle
+owm = pyowm.OWM(pickle.load(open(".weather_key.dat","rb")))
 ####################################################
 
 # This is not a *true* self, but it's as good a name as any
-def weather_botCall(self, msg, location="Birmingham,uk"):
-    weatherLocationW313 = owm.weather_at_place(location)
+def weather_botCall(self, msg):
+    user = 'user'
+    for key in msg:
+    	if key == 'from':
+        	user = msg['from']['username']
+    weatherLocationW313 = owm.weather_at_place('Birmingham,uk')
     w = weatherLocationW313.get_weather()
     weather = {'Status': w.get_detailed_status(),
                     'Time':w.get_reference_time(timeformat='iso'),
@@ -14,15 +19,14 @@ def weather_botCall(self, msg, location="Birmingham,uk"):
                     'Temperature' : w.get_temperature(unit='celsius'),
                     'Wind' : w.get_wind()}
 
-    self.sender.sendMessage(""" Weather at West 313 is currently: 
+    self.sender.sendMessage(""" Hello %s! The weather for today at West 313 is currently: 
                                     \nDate/Time: %s \nStatus: %s \nTemperature: %s C, High: %s C, Low: %s C 
                                     \nHumidity: %s \nPressure: %s mb\nWind Speed: %s mph, %s Degrees"""
-                            % (weather['Time'],weather['Status'],weather['Temperature']['temp'],
-                               weather['Temperature']['temp_max'],weather['Temperature']['temp_min'],
-                               weather['Humidity'],weather['Pressure']['press'],
-                               weather['Wind']['speed'],weather['Wind']['deg'],))
+                               % (user,weather['Time'],weather['Status'],weather['Temperature']['temp'],
+                                  weather['Temperature']['temp_max'],weather['Temperature']['temp_min'],
+                                  weather['Humidity'],weather['Pressure']['press'],
+                                  weather['Wind']['speed'],weather['Wind']['deg'],))
 
 __commands__ = {
         "/weather": weather_botCall
 }
-
