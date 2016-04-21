@@ -4,13 +4,11 @@ import logging, sys, json
 import time
 import stomp
 #import pprint
+import config
 import yaml
 
-
-with open('.NR_Login_Info.dat','r') as f:
-	user, password = yaml.load(f)
-NETWORK_RAIL_AUTH = (user, password)
-feed = 'TRAIN_MVT_EJ_TOC'
+NETWORK_RAIL_AUTH = (config.NR_USER, config.NR_PASSWORD)
+feed = config.NR_TMVT_FEED_ID
 
 #pretty = pprint.PrettyPrinter(indent=4)
 

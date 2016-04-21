@@ -11,6 +11,13 @@ To use the included weather bot you will require a free API key from [OpenWeathe
 
     WEATHER_KEY = "myspecialapikey"
 
+## Network Rail Bot
+To use the included Network Rail Train Movement Feed bot, you will require a username and password from [Network Rail Data Feeds](https://datafeeds.networkrail.co.uk/ntrod/login). The information must then also be added to `config.py` as:
+
+	NR_USER = "myusername"
+	NR_PASSWORD = "password"
+	NR_TMVT_FEED_ID = "ID of Subscribed Train Feed"
+
 ## Installation
 
     pip install -r requirements.txt
