@@ -10,7 +10,10 @@ import yaml
 NETWORK_RAIL_AUTH = (config.NR_USER, config.NR_PASSWORD)
 feed = config.NR_TMVT_FEED_ID
 
-locations = yaml.load(open("Location_Info.dat","rb"))
+Rail_Info = yaml.load(open("Rail_Info.dat","rb"))
+locations = Rail_Info['Locations']
+TSPEED = Rail_Info['TSPEED']
+CALL_CODE = Rail_Info['Call_Code']
 
 #pretty = pprint.PrettyPrinter(indent=4)
 
@@ -62,8 +65,17 @@ class TOC_Feed:
                 skey = 'loc_stanox'
 			#print pretty.pprint(message_dict)
                 if skey in message_dict[key]:
-                    self.Train_Info[message_dict[key]['train_id']] = {'Time': time.ctime((int(message_dict[key]['actual_timestamp'])-60*60*1000)/1E3),'Location ID': message_dict[key]['loc_stanox']}
-	
+                    train_ID = message_dict[key]['train_id']
+                    call_code = train_ID[7]
+                    for element in CALL_CODE:
+                        if element == call_code:
+                            call_code = CALL_CODE[element]	
+                    tspeed_code = train_ID[6] 
+                    for element in TSPEED:
+                        if element == tspeed_code:
+                            tspeed_code = TSPEED[element]
+                    self.Train_Info[train_ID] = {'TSPEED': tspeed_code,'CALL CODE': call_code, 'Time': time.ctime((int(message_dict[key]['actual_timestamp'])-60*60*1000)/1E3),'Location ID': message_dict[key]['loc_stanox']}
+
     def getLastLocation(self, train_id):
 	   
 	    area = ''	
@@ -74,7 +86,12 @@ class TOC_Feed:
 
     def getTime(self, key):
 	    return self.Train_Info[key]['Time']
+	
+    def getType(self,key):
+	    return self.Train_Info[key]['TSPEED']
 
+    def getOriginTime(self,key):
+	    return self.Train_Info[key]['CALL CODE']
 def NetRailBot(self,msg):
     self.sender.sendMessage("Accessing Feeds Please Wait...")
     LM_Feed = TOC_Feed(feed)
@@ -82,7 +99,7 @@ def NetRailBot(self,msg):
     Res_dict = LM_Feed.Train_Info
     out_string = ''
     for key in Res_dict:
-        out_string += "Time: %s \t \nID: %s \t \nLast Location: %s \n-------------------\n" % (LM_Feed.getTime(key),key,LM_Feed.getLastLocation(Res_dict[key]['Location ID']))
+        out_string += "Time: %s \t \nID: %s \t \nLast Location: %s \nType: %s \nTime of Origin: %s \n-------------------\n" % (LM_Feed.getTime(key),key,LM_Feed.getLastLocation(Res_dict[key]['Location ID']),LM_Feed.getType(key),LM_Feed.getOriginTime(key))
     self.sender.sendMessage( 
 ".                               \n"
 "            		    ___\n"+
