@@ -10,6 +10,8 @@ import yaml
 NETWORK_RAIL_AUTH = (config.NR_USER, config.NR_PASSWORD)
 feed = config.NR_TMVT_FEED_ID
 
+locations = yaml.load(open("Location_Info.dat","rb"))
+
 #pretty = pprint.PrettyPrinter(indent=4)
 
 # Sourced from http://nrodwiki.rockshore.net/index.php/Python_Examples
@@ -63,7 +65,7 @@ class TOC_Feed:
                     self.Train_Info[message_dict[key]['train_id']] = {'Time': time.ctime((int(message_dict[key]['actual_timestamp'])-60*60*1000)/1E3),'Location ID': message_dict[key]['loc_stanox']}
 	
     def getLastLocation(self, train_id):
-	    locations = yaml.load(open("Location_Info.dat","rb"))
+	   
 	    area = ''	
 	    for i in range(0,len(locations)):
 		    if int(locations[i]['STANOX']) == int(train_id):
