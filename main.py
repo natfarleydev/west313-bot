@@ -5,6 +5,7 @@ import weather_bot
 import arxiv_plugin
 import NetRail
 import Calc_Bot
+from plugins.beyonce import beyonce
 
 ####################################################
 
@@ -13,7 +14,8 @@ bot_features = [
     weather_bot,
     arxiv_plugin,
     NetRail,
-    Calc_Bot
+    Calc_Bot,
+    beyonce,
 ]
 
 EXITAPP = False
