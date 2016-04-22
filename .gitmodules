@@ -1,0 +1,3 @@
+[submodule "plugins/beyonce"]
+	path = plugins/beyonce
+	url = https://github.com/nasfarley88/beyonce-bot.git
